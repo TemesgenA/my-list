@@ -1,26 +1,37 @@
 // My LIst app entry JS file
 // eslint-disable-next-line no-unused-vars
-import _ from 'lodash';
+import _, { update } from 'lodash';
 import './style.css';
-import menu from './assets/images/3-dots.png';
 import arrow from './assets/images/add-item-img.png';
 import refresh from './assets/images/refresh.png';
+import { display, addToDo } from './crudOps.js';
 
-const listContainer = document.querySelector('.to-do-list-ul');
 document.querySelector('.refresh').src = `${refresh}`;
 document.querySelector('.arrow').src = `${arrow}`;
 
-// eslint-disable-next-line no-unused-expressions
-window.onload;
-// eslint-disable-next-line no-unused-expressions
-listContainer.innerHTML;
+const form = document.querySelector('.form');
+const input = document.querySelector('.add-item');
+const arrowImg = document.querySelector('.arrow');
 
-document.querySelector('.to-do-list-ul').innerHTML = toDos.map((data) => `<li class="to-do-item">
-  <div class="li-div">
-  <input class="to-do-check" type="checkbox">
-  <p>${data.description}</p>
-  </div>
-  <div class="img-div">
-  <img src="${menu}" alt="3-dots" class="li-img">
-  </div>
-  </li>`).join('');
+window.addEventListener('load', () => {
+  const toDoList = document.querySelector('.to-do-list-ul');
+  display(toDoList);
+});
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const toDoList = document.querySelector('.to-do-list-ul');
+  const inputVal = input.value;
+  addToDo(inputVal);
+  input.value = '';
+  display(toDoList);
+});
+
+arrowImg.addEventListener('click', (e) => {
+  e.preventDefault();
+  const toDoList = document.querySelector('.to-do-list-ul');
+  const inputVal = input.value;
+  addToDo(inputVal);
+  input.value = '';
+  display(toDoList);
+});
