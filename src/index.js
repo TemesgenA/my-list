@@ -15,28 +15,6 @@ window.onload;
 // eslint-disable-next-line no-unused-expressions
 listContainer.innerHTML;
 
-const toDos = [
-  {
-    description: 'webpack config',
-    completed: false,
-    index: 0,
-  },
-
-  {
-
-    description: 'walk with wife',
-    completed: false,
-    index: 1,
-  },
-
-  {
-    description: 'Finish react milestone',
-    completed: false,
-    index: 2,
-  },
-
-];
-
 document.querySelector('.to-do-list-ul').innerHTML = toDos.map((data) => `<li class="to-do-item">
   <div class="li-div">
   <input class="to-do-check" type="checkbox">
