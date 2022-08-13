@@ -2,7 +2,7 @@
 import { toDoListData } from './todo.js';
 import { setData } from './setItems.js';
 import resetIndex from './resetIndex.js';
-import updateCompletedDisplay from './updatecomplete.js';
+import updateCompletedDisplay from './updateComplete.js';
 
 export default function displayList() {
   const tasklists = toDoListData();
