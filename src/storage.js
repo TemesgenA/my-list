@@ -1,4 +1,3 @@
-// JS to handle local storage
 export default class Storage {
   static getLocalStorage() {
     if ((localStorage.getItem('to-do-item')) === null || (localStorage.getItem('to-do-item')) === 'undefined') {
