@@ -1,3 +1,5 @@
+import { setData } from './setItems.js';
+
 export default function resetIndex(index) {
   let sum = 0;
   // used the comment below to pass the for element while linter check
@@ -6,5 +8,5 @@ export default function resetIndex(index) {
     sum += 1;
     indexData.index = sum;
   }
-  // setData(index);
+  setData(index);
 }

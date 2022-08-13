@@ -1,6 +1,8 @@
 /* eslint-disable no-restricted-syntax */
 import { toDoListData } from './todo.js';
+import { setData } from './setItems.js';
 import resetIndex from './resetIndex.js';
+import updateCompletedDisplay from './updateComplete.js';
 
 export default function displayList() {
   const tasklists = toDoListData();
@@ -85,10 +87,33 @@ export default function displayList() {
         let id = lbl.id - 1;
         if (id < 0) { id = 0; }
         toDoListData[id].description = str;
-        // setData(toDoListData);
+        setData(toDoListData);
         taskListPlaceholder.innerHTML = '';
         displayList();
       }
     });
   });
+
+  function updateCompletedData(numberIndex, completedMark) {
+    tasklists[numberIndex].completed = completedMark;
+    setData(tasklists);
+    updateCompletedDisplay();
+  }
+
+  const checkbox = document.querySelectorAll('.checkbox');
+  let indexCheckBox = 0;
+  while (indexCheckBox < checkbox.length) {
+    checkbox[indexCheckBox].addEventListener('change', (e) => {
+      if (e.target.checked) {
+        let number = parseInt(e.target.classList[1], 10) - 1;
+        if (number < 0) { number = 0; }
+        updateCompletedData(number, true);
+      } else {
+        let number = parseInt(e.target.classList[1], 10) - 1;
+        if (number < 0) { number = 0; }
+        updateCompletedData(number, false);
+      }
+    });
+    indexCheckBox += 1;
+  }
 }
