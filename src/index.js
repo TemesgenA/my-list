@@ -1,50 +1,45 @@
-// eslint-disable-next-line no-unused-vars
-import _, { update } from 'lodash';
+/* eslint-disable linebreak-style */
 import './style.css';
-import arrow from './assets/images/add-item-img.png';
-import refresh from './assets/images/refresh.png';
-import {
-  display, addToDo, clear, clearAll,
-} from './crudOps.js';
 
-document.querySelector('.refresh').src = `${refresh}`;
-document.querySelector('.arrow').src = `${arrow}`;
+import TaskClass from './modules/TaskClass.js';
+import displayList from './modules/displayTask.js';
+import addTask from './modules/newTask.js';
+import updateCompletedDisplay from './modules/updateComplete.js';
+import resetIndex from './modules/resetIndex.js';
 
-const refreshImg = document.querySelector('.refresh');
+const inputTask = document.querySelector('#input-task');
+const taskListPlaceholder = document.querySelector('.task-lister');
+const notifier = document.querySelector('.note');
+const clearBtn = document.querySelector('#clear-btn');
 
-const form = document.querySelector('.form');
-const input = document.querySelector('.add-item');
-const arrowImg = document.querySelector('.arrow');
-const clearCompleted = document.querySelector('.remove-button');
-const toDoList = document.querySelector('.to-do-list-ul');
+displayList();
+updateCompletedDisplay();
 
-window.addEventListener('load', () => {
-  const toDoList = document.querySelector('.to-do-list-ul');
-  display(toDoList);
+// Execute a function when the user presses a key on the keyboard
+inputTask.addEventListener('keypress', (event) => {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === 'Enter') {
+    const toDoListData = JSON.parse(window.localStorage.getItem('taskData') || '[]');
+    event.preventDefault();
+    if (inputTask.value === '') {
+      notifier.classList.remove('hidden');
+    } else {
+      const index = toDoListData.length + 1;
+      const toDoClass = new TaskClass(inputTask.value.trim(), false, index);
+      addTask(toDoClass);
+      taskListPlaceholder.innerHTML = '';
+      displayList();
+      inputTask.value = '';
+      notifier.classList.add('hidden');
+    }
+  }
 });
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const toDoList = document.querySelector('.to-do-list-ul');
-  const inputVal = input.value;
-  addToDo(inputVal);
-  input.value = '';
-  display(toDoList);
-});
-
-arrowImg.addEventListener('click', (e) => {
-  e.preventDefault();
-  const toDoList = document.querySelector('.to-do-list-ul');
-  const inputVal = input.value;
-  addToDo(inputVal);
-  input.value = '';
-  display(toDoList);
-});
-
-clearCompleted.addEventListener('click', () => {
-  clear(toDoList);
-});
-
-refreshImg.addEventListener('click', () => {
-  clearAll(toDoList);
+clearBtn.addEventListener('click', () => {
+  const toDoListData = JSON.parse(window.localStorage.getItem('taskData') || '[]');
+  const clearItems = toDoListData.filter((completeList) => completeList.completed === false);
+  window.localStorage.setItem('bookData', JSON.stringify(clearItems));
+  resetIndex(clearItems);
+  taskListPlaceholder.innerHTML = '';
+  displayList();
 });
