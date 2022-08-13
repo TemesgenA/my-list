@@ -1,48 +1,50 @@
-// My LIst app entry JS file
 // eslint-disable-next-line no-unused-vars
-import _ from 'lodash';
+import _, { update } from 'lodash';
 import './style.css';
-import menu from './assets/images/3-dots.png';
 import arrow from './assets/images/add-item-img.png';
 import refresh from './assets/images/refresh.png';
+import {
+  display, addToDo, clear, clearAll,
+} from './crudOps.js';
 
-const listContainer = document.querySelector('.to-do-list-ul');
 document.querySelector('.refresh').src = `${refresh}`;
 document.querySelector('.arrow').src = `${arrow}`;
 
-// eslint-disable-next-line no-unused-expressions
-window.onload;
-// eslint-disable-next-line no-unused-expressions
-listContainer.innerHTML;
+const refreshImg = document.querySelector('.refresh');
 
-const toDos = [
-  {
-    description: 'webpack config',
-    completed: false,
-    index: 0,
-  },
+const form = document.querySelector('.form');
+const input = document.querySelector('.add-item');
+const arrowImg = document.querySelector('.arrow');
+const clearCompleted = document.querySelector('.remove-button');
+const toDoList = document.querySelector('.to-do-list-ul');
 
-  {
+window.addEventListener('load', () => {
+  const toDoList = document.querySelector('.to-do-list-ul');
+  display(toDoList);
+});
 
-    description: 'walk with wife',
-    completed: false,
-    index: 1,
-  },
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const toDoList = document.querySelector('.to-do-list-ul');
+  const inputVal = input.value;
+  addToDo(inputVal);
+  input.value = '';
+  display(toDoList);
+});
 
-  {
-    description: 'Finish react milestone',
-    completed: false,
-    index: 2,
-  },
+arrowImg.addEventListener('click', (e) => {
+  e.preventDefault();
+  const toDoList = document.querySelector('.to-do-list-ul');
+  const inputVal = input.value;
+  addToDo(inputVal);
+  input.value = '';
+  display(toDoList);
+});
 
-];
+clearCompleted.addEventListener('click', () => {
+  clear(toDoList);
+});
 
-document.querySelector('.to-do-list-ul').innerHTML = toDos.map((data) => `<li class="to-do-item">
-  <div class="li-div">
-  <input class="to-do-check" type="checkbox">
-  <p>${data.description}</p>
-  </div>
-  <div class="img-div">
-  <img src="${menu}" alt="3-dots" class="li-img">
-  </div>
-  </li>`).join('');
+refreshImg.addEventListener('click', () => {
+  clearAll(toDoList);
+});
