@@ -1,3 +1,5 @@
+/* eslint no-use-before-define: ["error", { "functions": false }] */
+
 import Storage from './storage.js';
 import menu from './assets/images/3-dots.png';
 
@@ -37,30 +39,8 @@ const changeItem = (value, id) => {
   arr[id - 1].description = value;
   Storage.SetLocalStorage(arr);
 };
-const markCompleted = (checkbox, id, toDoList) => {
-  const arr = Storage.getLocalStorage();
-  arr[id - 1].completed = checkbox.checked;
-  Storage.SetLocalStorage(arr);
-  display(toDoList);
-};
 
-export const clear = (toDoList) => {
-  let arr = Storage.getLocalStorage();
-  arr = arr.filter((e) => e.completed !== true);
-  arr.forEach((item, index) => {
-    item.index = index + 1;
-  });
-  Storage.SetLocalStorage(arr);
-  display(toDoList);
-};
-
-export const clearAll = () => {
-  const toDoList = document.querySelector('.to-do-list-ul');
-  window.localStorage.clear();
-  toDoList.innerHTML = '';
-};
-
-export const display = (output) => {
+export function display(output) {
   const storageManager = Storage.getLocalStorage();
   output.innerHTML = null;
   storageManager.forEach((item) => {
@@ -81,7 +61,7 @@ export const display = (output) => {
 
   const removeButton = document.querySelectorAll('.li-img');
   if (removeButton.length !== 0) {
-    for (let i = 0; i < removeButton.length; i++) {
+    for (let i = 0; i < removeButton.length; i += 1) {
       removeButton[i].addEventListener('click', (e) => {
         const { id } = e.target;
         removeToDo(id);
@@ -91,21 +71,16 @@ export const display = (output) => {
   }
   const item = document.querySelectorAll('.to-do-item-form');
   if (item.length !== 0) {
-    for (let i = 0; i < item.length; i++) {
+    for (let i = 0; i < item.length; i += 1) {
       item[i].addEventListener('change', (e) => {
         const { id } = e.target;
         changeItem(item[i].value, id);
       });
     }
   }
-
-  // const toggleAbilitiy = () => {
-  //   const test = document.querySelectorAll('.to-do-item-form')
-  //   item.classList.toggle('active')
-  // }
   const checkBox = document.querySelectorAll('.to-do-check');
   if (checkBox.length !== 0) {
-    for (let i = 0; i < checkBox.length; i++) {
+    for (let i = 0; i < checkBox.length; i += 1) {
       checkBox[i].addEventListener('change', (e) => {
         const id = e.target.id.replace('check-', '');
         markCompleted(e.target, id, checkBox);
@@ -113,4 +88,27 @@ export const display = (output) => {
       });
     }
   }
+}
+
+export const clear = (toDoList) => {
+  let arr = Storage.getLocalStorage();
+  arr = arr.filter((e) => e.completed !== true);
+  arr.forEach((item, index) => {
+    item.index = index + 1;
+  });
+  Storage.SetLocalStorage(arr);
+  display(toDoList);
 };
+
+export const clearAll = () => {
+  const toDoList = document.querySelector('.to-do-list-ul');
+  window.localStorage.clear();
+  toDoList.innerHTML = '';
+};
+
+function markCompleted(checkbox, id, toDoList) {
+  const arr = Storage.getLocalStorage();
+  arr[id - 1].completed = checkbox.checked;
+  Storage.SetLocalStorage(arr);
+  display(toDoList);
+}
