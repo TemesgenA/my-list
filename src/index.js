@@ -4,7 +4,6 @@ import './style.css';
 import TaskClass from './modules/TaskClass.js';
 import displayList from './modules/displayTask.js';
 import addTask from './modules/newTask.js';
-import updateCompletedDisplay from './modules/updateComplete.js';
 import resetIndex from './modules/resetIndex.js';
 
 const inputTask = document.querySelector('#input-task');
@@ -13,8 +12,6 @@ const notifier = document.querySelector('.note');
 const clearBtn = document.querySelector('#clear-btn');
 
 displayList();
-updateCompletedDisplay();
-
 // Execute a function when the user presses a key on the keyboard
 inputTask.addEventListener('keypress', (event) => {
   // If the user presses the "Enter" key on the keyboard
