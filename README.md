@@ -1,6 +1,8 @@
 
 # Project Name
+> My To Do List
 
+# Project Description
 > My List is a tool that helps to organize your day. It simply lists the things that you need to do and allows you to mark them as complete.
 
 ## Built With
@@ -21,10 +23,6 @@
 
 ## Getting Started
 
-**This is an example of how you may give instructions on setting up your project locally.**
-**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
-
-
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
@@ -43,6 +41,9 @@ npm install webpack webpack-cli --save-dev
 
 ### Usage
 - To checkout the app [My-list](https://temesgena.github.io/my-list/dist/)
+
+### Screenshot
+![This is screenshot](./img/screenshot.png)
 
 ### Author
 
