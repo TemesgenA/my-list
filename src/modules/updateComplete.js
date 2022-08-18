@@ -1,4 +1,4 @@
-import { toDoListData } from './todo.js';
+import toDoListData from './todo.js';
 
 export default function updateCompletedDisplay() {
   const checkbox = document.querySelectorAll('.checkbox');

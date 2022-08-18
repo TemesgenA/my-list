@@ -1,4 +1,4 @@
-import { toDoListData } from './todo.js';
+import toDoListData from './todo.js';
 import resetIndex from './resetIndex.js';
 import { setData } from './setItems.js';
 
