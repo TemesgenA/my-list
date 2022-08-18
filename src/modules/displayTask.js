@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-syntax */
-import { toDoListData } from './todo.js';
+import toDoListData from './todo.js';
 import { setData } from './setItems.js';
 import resetIndex from './resetIndex.js';
 import updateCompletedDisplay from './updateComplete.js';
